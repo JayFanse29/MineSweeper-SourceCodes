@@ -64,7 +64,7 @@ public class MainFrame extends JFrame implements ActionListener, Runnable, KeyLi
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(null);
 //		this.getContentPane().setBackground(Color.ORANGE);
-		bg1 = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("grass.jpg")));
+		bg1 = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("grassG.jpg")));
 		bg1.setBounds(0,0,1300,800);
 				
 		this.setContentPane(bg1);
@@ -87,6 +87,7 @@ public class MainFrame extends JFrame implements ActionListener, Runnable, KeyLi
 	{
 		nameL = new JLabel("Nickname : ");
 		nameL.setBounds(150,50,250,50);
+		nameL.setForeground(Color.white);
 		nameL.setFont(f);
 		
 		uName = new JTextField();
@@ -107,6 +108,8 @@ public class MainFrame extends JFrame implements ActionListener, Runnable, KeyLi
 		difficultyLabel = new JLabel("Difficulty   :");
 		difficultyLabel.setBounds(150,140,250,50);
 		difficultyLabel.setFont(f);
+		difficultyLabel.setForeground(Color.white);
+
 		
 		difficultyDisplay = new JLabel();
 		difficultyDisplay.setBounds(20,30,400,50);
@@ -254,7 +257,8 @@ public class MainFrame extends JFrame implements ActionListener, Runnable, KeyLi
 		instTitle.setHorizontalAlignment((int)CENTER_ALIGNMENT);
 		instTitle.setBounds(0,0,800,100);
 		instTitle.setFont(g);
-		
+		instTitle.setForeground(Color.white);
+
 		instBody = new JTextArea(" 1. 'Left click' on any block to explore it. \n 2. The number on the explored block represents\n     the number of mines adjacent to that block."
 				+ "\n 3. 'Right click' on the block to flag or unflag that\n     block.\n 4. You win when all the blocks containing\n     mines are flagged and rest all are explored.\n"
 				+ " 5.  You lose if you explore a mine.");
@@ -263,6 +267,7 @@ public class MainFrame extends JFrame implements ActionListener, Runnable, KeyLi
 		instBody.setEditable(false);
 		instBody.setFocusable(false);
 		instBody.setOpaque(false);
+		instBody.setForeground(Color.white);
 		instBody.setBackground(Color.cyan);
 	}
 	
@@ -275,6 +280,7 @@ public class MainFrame extends JFrame implements ActionListener, Runnable, KeyLi
 		difficulty.setFocusable(false);
 		difficulty.setBorder(blockBordergreen);
 		difficulty.addMouseListener(this);
+		difficulty.addActionListener(this);
 	}
 	
 	void gridArea()
@@ -282,14 +288,17 @@ public class MainFrame extends JFrame implements ActionListener, Runnable, KeyLi
 		img = new JPanel();
 		img.setBounds(226,120,810,550);
 		img.setBorder(Blackline1);
-		img.setBackground(Color.lightGray);
+//		img.setBackground(Color.lightGray);
+		img.setBackground(new Color(0,0,0,60));
+
+		
 		img.setVisible(true);
 		img.setLayout(null);
 		
 		inst = new JPanel();
 		inst.setBounds(226,120,810,550);
 		inst.setBorder(Blackline1);
-		inst.setBackground(Color.lightGray);
+		inst.setBackground(new Color(0,0,0,60));
 		inst.setVisible(false);
 		inst.setLayout(null);
 		
@@ -325,7 +334,7 @@ public class MainFrame extends JFrame implements ActionListener, Runnable, KeyLi
 	
 	void quitAction()
 	{
-		bg1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("grass.jpg")));
+		bg1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("grassG.jpg")));
 
 		quit.setVisible(false);
 		reStart.setVisible(false);
@@ -356,6 +365,14 @@ public class MainFrame extends JFrame implements ActionListener, Runnable, KeyLi
 	@Override
 	public void actionPerformed(ActionEvent ae){
 		
+		if(ae.getSource().equals(difficulty))
+		{
+			img.setBackground(new Color(0,0,0,60));
+			bg1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("grassG.jpg")));
+//			this.setContentPane(bg1);
+			this.setVisible(true);
+			System.out.println("in");
+		}
 		
 		if(ae.getSource().equals(start))
 		{
@@ -369,7 +386,7 @@ public class MainFrame extends JFrame implements ActionListener, Runnable, KeyLi
 			String nm = uName.getText();
 			if(nm.equals(""))
 			{
-				bg1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("grass.jpg")));
+				bg1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("grassG.jpg")));
 				JOptionPane.showMessageDialog(null,"Please enter your nickname!","Missing data",JOptionPane.WARNING_MESSAGE);
 
 			}
@@ -466,34 +483,27 @@ public class MainFrame extends JFrame implements ActionListener, Runnable, KeyLi
 		if(ae.getSource().equals(exit))
 		{
 			this.dispose();
+//			lbd.initialize(this);
 		}
 		if(ae.getSource().equals(leaderBoard))
 		{
 //			this.setVisible(false);
 	
 			lbd.initialize(this);
-			lbd.titleP.add(backToMenu);
-			try
-			{
-			Thread.sleep(50);
-			}
-			catch(Exception e) {}
-			title.setVisible(false);
-			img.setVisible(false);
+			lbd.setVisible(true);
+//			lbd.titleP.add(backToMenu);
+//			try
+//			{
+//			Thread.sleep(50);
+//			}
+//			catch(Exception e) {}
+			this.dispose();
+//			title.setVisible(false);
+//			img.setVisible(false);
 		
 			
 		}
-		if(ae.getSource().equals(backToMenu))
-		{
-			title.setVisible(true);
-			img.setVisible(true);
-			
-			lbd.titleP.setVisible(false);
-			lbd.left.setVisible(false);
-			lbd.cen.setVisible(false);
-			lbd.right.setVisible(false);
-			
-		}
+		
 		if(ae.getSource().equals(info))
 		{
 			img.setVisible(false);
@@ -583,6 +593,8 @@ public class MainFrame extends JFrame implements ActionListener, Runnable, KeyLi
 		}
 		if(e.getKeyChar()=='\n')
 		{
+			bg1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("org.jpg")));
+			this.setVisible(true);
 			String nm = uName.getText();
 			if(nm.equals(""))
 			{
@@ -699,7 +711,6 @@ public class MainFrame extends JFrame implements ActionListener, Runnable, KeyLi
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 		
 	}
 
@@ -1322,39 +1333,66 @@ class Levels implements ActionListener, MouseListener
 	}
 }
 
-class LeaderBoardDisplay 
+class LeaderBoardDisplay extends JFrame implements ActionListener,MouseListener
 {
 	JPanel titleP,left,right,cen;
 	JLabel LeaderBoardL,easy,medium,hard;
+	JButton backToMenu;
 	JTextArea leftRank,cenRank,rightRank, leftName,cenName,rightName, leftTime,cenTime,rightTime;
 	MainFrame mf;
 	Font t = new Font("Arial", Font.BOLD,50);
 	Font d = new Font("Arial", Font.BOLD,27);
 	Font d1 = new Font("Arial", Font.BOLD,22);
-
+	Font b = new Font("Arial", Font.BOLD,24);
 	File lb = new File("C:\\Mine Sweeper\\Leaderboards");
 	Border Blackline = BorderFactory.createLineBorder(Color.black,6);
 	Border temp = BorderFactory.createLineBorder(Color.black,1);
+	Border blockBordergreen = BorderFactory.createLineBorder(Color.black, 2);
+	Border Blackline1 = BorderFactory.createLineBorder(Color.black,4);
+
+	
 	FileReader fr;
 	BufferedReader br;
 	
 	void initialize(MainFrame mf)
 	{
+		this.setSize(1253,720);
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
+//		this.setBounds(-10,0,5600,5000);
+//		this.setPreferredSize(new Dimension(5000,5000));
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setLayout(null);
+		
 		this.mf=mf;
 		
 		titlePanel();
 		mainPanels();
 		textArea();
+		button();
 		generateLeaderboard();
 		
-		mf.add(titleP);
-		mf.add(left);	mf.add(cen);	mf.add(right);
+		this.add(titleP);
+		this.add(left);	this.add(cen);	this.add(right);
+		titleP.add(backToMenu);
 		
 		
 		mf.setVisible(false);
 		mf.setVisible(true);
+		
+		this.setVisible(true);
 	}
 	
+	void button()
+	{
+		backToMenu = new JButton("Back");
+		backToMenu.setBounds(15,15,100,50);
+		backToMenu.setFont(b);
+		backToMenu.setFocusable(false);
+		backToMenu.addActionListener(this);
+		backToMenu.setBorder(blockBordergreen);
+		backToMenu.addMouseListener(this);
+	}
 	void titlePanel()
 	{
 		titleP = new JPanel();
@@ -1597,6 +1635,67 @@ class LeaderBoardDisplay
 		rightRank.setText(Rank);
 		rightName.setText(Name);
 		rightTime.setText(Time);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource().equals(backToMenu))
+		{
+			backToMenu.setBorder(Blackline1);
+
+		}
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource().equals(backToMenu))
+		{
+			backToMenu.setBorder(blockBordergreen);
+
+		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+
+		if(ae.getSource().equals(backToMenu))
+		{
+//			title.setVisible(true);
+//			img.setVisible(true);
+			try
+			{
+				mf=new MainFrame();
+				mf.createWindow();
+			}
+			catch(Exception e) { }
+			
+			this.dispose();
+//			lbd.titleP.setVisible(false);
+//			lbd.left.setVisible(false);
+//			lbd.cen.setVisible(false);
+//			lbd.right.setVisible(false);
+			
+		}
 	}
 	
 }
