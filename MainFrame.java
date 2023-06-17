@@ -104,7 +104,7 @@ public class MainFrame extends JFrame implements ActionListener, Runnable, KeyLi
 		title = new JLabel("Mine Sweeper");
 		title.setBounds(326,5,1100,100);
 		title.setFont(t);
-		title.setForeground(Color.white);
+		title.setForeground(Color.black);
 		
 		difficultyLabel = new JLabel("Difficulty   :");
 		difficultyLabel.setBounds(150,140,250,50);
@@ -551,13 +551,13 @@ public class MainFrame extends JFrame implements ActionListener, Runnable, KeyLi
 				}
 				else if(difficultyDisplay.getText().equals("Difficulty      : Medium"))
 				{
-					ll.initialize(13,17,25,this);
+					ll.initialize(13,17,30,this);
 					flags.setText("Flags Left     : 30");
 
 				}
 				else if(difficultyDisplay.getText().equals("Difficulty      : Hard"))
 				{
-					ll.initialize(16,21,45,this);			
+					ll.initialize(16,21,50,this);			
 					flags.setText("Flags Left     : 50");
 
 				}
