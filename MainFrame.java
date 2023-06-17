@@ -66,7 +66,8 @@ public class MainFrame extends JFrame implements ActionListener, Runnable, KeyLi
 //		this.getContentPane().setBackground(Color.ORANGE);
 		bg1 = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("grassG.jpg")));
 		bg1.setBounds(0,0,1300,800);
-				
+		bg1.addMouseListener(this);	
+		
 		this.setContentPane(bg1);
 		this.setTitle("Mine Sweeper");
 		
@@ -290,7 +291,7 @@ public class MainFrame extends JFrame implements ActionListener, Runnable, KeyLi
 		img.setBorder(Blackline1);
 //		img.setBackground(Color.lightGray);
 		img.setBackground(new Color(0,0,0,60));
-
+		img.addMouseListener(this);
 		
 		img.setVisible(true);
 		img.setLayout(null);
@@ -490,7 +491,7 @@ public class MainFrame extends JFrame implements ActionListener, Runnable, KeyLi
 //			this.setVisible(false);
 	
 			lbd.initialize(this);
-			lbd.setVisible(true);
+//			lbd.setVisible(true);
 //			lbd.titleP.add(backToMenu);
 //			try
 //			{
@@ -718,6 +719,13 @@ public class MainFrame extends JFrame implements ActionListener, Runnable, KeyLi
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+		if(e.getSource().equals(img) || e.getSource().equals(difficulty) || e.getSource().equals(bg1) || e.getSource().equals(start)
+				|| e.getSource().equals(info) || e.getSource().equals(leaderBoard) || e.getSource().equals(exit))
+		{
+			img.setBackground(new Color(0,0,0,60));
+			bg1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("grassG.jpg")));
+			this.setVisible(true);
+		}
 	}
 
 	@Override
@@ -1363,9 +1371,7 @@ class LeaderBoardDisplay extends JFrame implements ActionListener,MouseListener
 //		this.setPreferredSize(new Dimension(5000,5000));
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(null);
-		
-		this.mf=mf;
-		
+				
 		titlePanel();
 		mainPanels();
 		textArea();
@@ -1376,10 +1382,7 @@ class LeaderBoardDisplay extends JFrame implements ActionListener,MouseListener
 		this.add(left);	this.add(cen);	this.add(right);
 		titleP.add(backToMenu);
 		
-		
-		mf.setVisible(false);
-		mf.setVisible(true);
-		
+
 		this.setVisible(true);
 	}
 	
